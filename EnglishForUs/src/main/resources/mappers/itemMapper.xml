@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.zzingobomi.mapper.ItemMapper">
+
+	<insert id="create">
+	insert into tbl_item (title_ko, title_en, addinfo)
+	values(#{title_ko}, #{title_en}, #{addinfo})
+	</insert>
+	
+	<select id="read" resultType="ItemVO">
+	select
+		idx, title_ko, title_en, addinfo, regdate
+	from
+		tbl_item
+	where idx = #{idx}	
+	</select>
+	
+	<update id="update">
+	update tbl_item set title_ko =#{title_ko}, title_en =#{title_en}, addinfo = #{addinfo}
+	where idx = #{idx}
+	</update>
+	
+	<delete id="delete">
+	delete from tbl_item where idx = #{idx}
+	</delete>
+	
+	<select id="listAll" resultType="ItemVO">
+	<![CDATA[
+	select 
+		idx, title_ko, title_en, addinfo, regdate
+	from
+		tbl_item
+	where idx > 0
+	order by idx desc, regdate desc
+	]]>
+	</select>
+	
+	<select id="oneRandomItem" resultType="ItemVO">
+	select
+		idx, title_ko, title_en, addinfo, regdate
+	from
+		tbl_item
+	order by 
+		rand()
+	limit
+		1	
+	</select>
+
+</mapper>
