@@ -21,8 +21,7 @@ public class ItemAPIController {
 	@RequestMapping(value = "/onerandomitem", method = RequestMethod.GET)
 	public ResponseEntity<ItemVO> getOneItem() {
 		ResponseEntity<ItemVO> entity = null;
-		try {
-			// 임시 테스트용
+		try {			
 			entity = new ResponseEntity<ItemVO>(service.oneRandomItem(), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
