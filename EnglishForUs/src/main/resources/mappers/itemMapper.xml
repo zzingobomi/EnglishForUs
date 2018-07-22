@@ -126,7 +126,7 @@
 	
 	<select id="oneRandomItem" resultType="ItemVO">
 	select
-		idx, title_ko, title_en, addinfo, regdate, regidemail
+		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
 	from
 		tbl_item
 	order by 
