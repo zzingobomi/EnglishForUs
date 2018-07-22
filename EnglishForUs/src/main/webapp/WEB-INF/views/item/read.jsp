@@ -8,19 +8,21 @@
 		var formObj = $("form[role='form']");
 		console.log(formObj);
 		
-		$(".btn-warning").on("click", function(){
+		$("#modifyBtn").on("click", function(){
 			formObj.attr("action", "/item/modify");
 			formObj.attr("method", "get");		
 			formObj.submit();
 		});
 		
-		$(".btn-danger").on("click", function(){
+		$("#removeBtn").on("click", function(){
 			formObj.attr("action", "/item/remove");
 			formObj.submit();
 		});
 		
-		$(".btn-primary").on("click", function(){
-			self.location = "/item/listAll";
+		$("#goListBtn").on("click", function(){
+			formObj.attr("method", "get");
+			formObj.attr("action", "/item/listAll");
+			formObj.submit();
 		});
 	});	
 </script>
@@ -36,8 +38,12 @@
 					<h3 class="box-title">READ ITEM</h3>
 				</div>
 				
-				<form role="form" method="post">
+				<form role="form" action="modify" method="post">
 					<input type='hidden' name='idx' value="${itemVO.idx}">
+					<input type='hidden' name='page' value ="${cri.page}">
+    				<input type='hidden' name='perPageNum' value ="${cri.perPageNum}">
+    				<input type='hidden' name='searchType' value ="${cri.searchType}">
+    				<input type='hidden' name='keyword' value ="${cri.keyword}">
 				</form>
 				
 				<div class="box-body">
@@ -56,9 +62,9 @@
 				</div>
 				
 				<div class="box-footer">
-					<button type="submit" class="btn btn-warning">Modify</button>
-					<button type="submit" class="btn btn-danger">REMOVE</button>
-					<button type="submit" class="btn btn-primary">LIST ALL</button>
+					<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
+					<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
+					<button type="submit" class="btn btn-primary" id="goListBtn">LIST ALL</button>
 				</div>				
 				
 			</div><!-- box-primary -->

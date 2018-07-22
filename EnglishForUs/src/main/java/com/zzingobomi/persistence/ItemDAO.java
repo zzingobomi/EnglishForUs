@@ -2,7 +2,9 @@ package com.zzingobomi.persistence;
 
 import java.util.List;
 
+import com.zzingobomi.domain.Criteria;
 import com.zzingobomi.domain.ItemVO;
+import com.zzingobomi.domain.SearchCriteria;
 
 public interface ItemDAO {
 	
@@ -16,15 +18,15 @@ public interface ItemDAO {
 	
 	public List<ItemVO> listAll() throws Exception;
 	
-	//public List<ItemVO> listPage(int page) throws Exception;
+	public List<ItemVO> listPage(int page) throws Exception;
 	
-	//public List<ItemVO> listCriteria(Criteria cri) throws Exception;
+	public List<ItemVO> listCriteria(Criteria cri) throws Exception;
 	
-	//public int countPaging(Criteria cri) throws Exception;
+	public int countPaging(Criteria cri) throws Exception;
 	
-	//public List<ItemVO> listSearch(SearchCriteria cri) throws Exception;
+	public List<ItemVO> listSearch(SearchCriteria cri) throws Exception;
 	
-	//public int listSearchCount(SearchCriteria cri) throws Exception;
+	public int listSearchCount(SearchCriteria cri) throws Exception;
 	
 	public ItemVO chooseRandomItem() throws Exception;
 }

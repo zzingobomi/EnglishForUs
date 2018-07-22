@@ -6,7 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.zzingobomi.domain.Criteria;
 import com.zzingobomi.domain.ItemVO;
+import com.zzingobomi.domain.SearchCriteria;
 import com.zzingobomi.persistence.ItemDAO;
 
 @Service
@@ -38,11 +40,10 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<ItemVO> listAll() throws Exception {
 		return dao.listAll();
-	}
+	}	
 	
-	/*
 	@Override
-	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+	public List<ItemVO> listCriteria(Criteria cri) throws Exception {
 		return dao.listCriteria(cri);
 	}
 
@@ -52,7 +53,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 	
 	@Override
-	public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception {
+	public List<ItemVO> listSearchCriteria(SearchCriteria cri) throws Exception {
 		return dao.listSearch(cri);
 	}
 	
@@ -60,7 +61,7 @@ public class ItemServiceImpl implements ItemService {
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return dao.listSearchCount(cri);
 	}
-	*/
+	
 	
 	
 	@Override

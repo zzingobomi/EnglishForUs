@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.zzingobomi.domain.Criteria;
 import com.zzingobomi.domain.ItemVO;
+import com.zzingobomi.domain.SearchCriteria;
 
 @Repository
 public class ItemDAOImpl implements ItemDAO {
@@ -40,11 +42,10 @@ public class ItemDAOImpl implements ItemDAO {
 	@Override
 	public List<ItemVO> listAll() throws Exception {
 		return session.selectList(namespace + ".listAll");
-	}
+	}	
 	
-	/*
 	@Override
-	public List<BoardVO> listPage(int page) throws Exception {		
+	public List<ItemVO> listPage(int page) throws Exception {		
 		if(page <= 0) {
 			page = 1;
 		}
@@ -55,7 +56,7 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+	public List<ItemVO> listCriteria(Criteria cri) throws Exception {
 		return session.selectList(namespace + ".listCriteria", cri);
 	}
 	
@@ -65,7 +66,7 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 	
 	@Override
-	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
+	public List<ItemVO> listSearch(SearchCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listSearch", cri);
 	}
 	
@@ -73,7 +74,10 @@ public class ItemDAOImpl implements ItemDAO {
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return session.selectOne(namespace + ".listSearchCount", cri);
 	}
-	*/
+	
+	
+	
+	
 	
 	@Override
 	public ItemVO chooseRandomItem() throws Exception {

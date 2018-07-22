@@ -28,6 +28,14 @@
 							<label for="exampleInputEmail1">Add_Info</label>
 							<input type="text" name="addinfo" class="form-control" placeholder="부가 설명">
 						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">RegIdEmail</label>
+							<input type="text" name="regidemail" class="form-control" placeholder="등록 Id" value="zzingo5@gmail.com" readonly="readonly">							
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">RegDisplayName</label>
+							<input type="text" name="regdisplayname" class="form-control" placeholder="등록 이름" value="관리자" readonly="readonly">							
+						</div>
 					</div>
 					<!-- /.box-body -->
 					

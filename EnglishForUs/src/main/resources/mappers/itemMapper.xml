@@ -6,13 +6,13 @@
 <mapper namespace="com.zzingobomi.mapper.ItemMapper">
 
 	<insert id="create">
-	insert into tbl_item (title_ko, title_en, addinfo)
-	values(#{title_ko}, #{title_en}, #{addinfo})
+	insert into tbl_item (title_ko, title_en, addinfo, regidemail, regdisplayname)
+	values(#{title_ko}, #{title_en}, #{addinfo}, #{regidemail}, #{regdisplayname})
 	</insert>
 	
 	<select id="read" resultType="ItemVO">
 	select
-		idx, title_ko, title_en, addinfo, regdate
+		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
 	from
 		tbl_item
 	where idx = #{idx}	
@@ -30,7 +30,7 @@
 	<select id="listAll" resultType="ItemVO">
 	<![CDATA[
 	select 
-		idx, title_ko, title_en, addinfo, regdate
+		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
 	from
 		tbl_item
 	where idx > 0
@@ -38,9 +38,95 @@
 	]]>
 	</select>
 	
+	<select id="listPage" resultType="ItemVO">
+	<![CDATA[
+	select 
+		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
+	from
+		tbl_item
+	where idx > 0
+	order by idx desc, regdate desc
+	limit #{page}, 10
+	]]>
+	</select>
+	
+	<select id="listCriteria" resultType="ItemVO">
+	<![CDATA[
+	select 
+		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
+	from
+		tbl_item
+	where idx > 0
+	order by idx desc, regdate desc
+	limit #{pageStart}, #{perPageNum}
+	]]>
+	</select>
+	
+	<select id="countPaging" resultType="int">
+	<![CDATA[
+	select 
+		count(idx)
+	from
+		tbl_item
+	where idx > 0	
+	]]>
+	</select>
+	
+	<select id="listSearch" resultType="ItemVO">
+	<![CDATA[
+	select *
+	from tbl_item
+	where idx > 0	
+	]]>
+	
+	<include refid="search"></include>
+	
+	<![CDATA[
+	order by idx desc
+	limit #{pageStart}, #{perPageNum}
+	]]>
+	
+	</select>
+	
+	<select id="listSearchCount" resultType="int">
+	<![CDATA[
+	select 
+		count(idx)
+	from
+		tbl_item
+	where idx > 0	
+	]]>
+	
+	<include refid="search"></include>
+	
+	</select>
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 'k'.toString()">
+				and title_ko like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'e'.toString()">
+				and title_en like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'i'.toString()">
+				and regidemail like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'ke'.toString()">
+				and ( title_ko like CONCAT('%', #{keyword}, '%') OR title_en like CONCAT('%', #{keyword}, '%'))
+			</if>
+			<if test="searchType == 'ei'.toString()">
+				and ( title_en like CONCAT('%', #{keyword}, '%') OR regidemail like CONCAT('%', #{keyword}, '%'))
+			</if>
+			<if test="searchType == 'kei'.toString()">
+				and ( title_ko like CONCAT('%', #{keyword}, '%') OR title_en like CONCAT('%', #{keyword}, '%') OR regidemail like CONCAT('%', #{keyword}, '%'))
+			</if>
+		</if>
+	</sql>	
+	
 	<select id="oneRandomItem" resultType="ItemVO">
 	select
-		idx, title_ko, title_en, addinfo, regdate
+		idx, title_ko, title_en, addinfo, regdate, regidemail
 	from
 		tbl_item
 	order by 

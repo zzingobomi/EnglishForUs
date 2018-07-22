@@ -2,7 +2,9 @@ package com.zzingobomi.service;
 
 import java.util.List;
 
+import com.zzingobomi.domain.Criteria;
 import com.zzingobomi.domain.ItemVO;
+import com.zzingobomi.domain.SearchCriteria;
 
 public interface ItemService {
 	
@@ -16,13 +18,13 @@ public interface ItemService {
 	
 	public List<ItemVO> listAll() throws Exception;
 	
-	//public List<BoardVO> listCriteria(Criteria cri) throws Exception;
+	public List<ItemVO> listCriteria(Criteria cri) throws Exception;
 	
-	//public int listCountCriteria(Criteria cri) throws Exception;
+	public int listCountCriteria(Criteria cri) throws Exception;
 	
-	//public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception;
+	public List<ItemVO> listSearchCriteria(SearchCriteria cri) throws Exception;
 	
-	//public int listSearchCount(SearchCriteria cri) throws Exception;
+	public int listSearchCount(SearchCriteria cri) throws Exception;
 	
 	public ItemVO oneRandomItem() throws Exception;
 

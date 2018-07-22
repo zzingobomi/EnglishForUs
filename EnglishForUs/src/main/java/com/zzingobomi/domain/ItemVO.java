@@ -9,6 +9,8 @@ public class ItemVO {
 	private String title_en;
 	private String addinfo;
 	private Date regdate;
+	private String regidemail;
+	private String regdisplayname;
 	
 	public Integer getIdx() {
 		return idx;
@@ -39,11 +41,24 @@ public class ItemVO {
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
+	}	
+	public String getRegidemail() {
+		return regidemail;
 	}
-	
+	public void setRegidemail(String regidemail) {
+		this.regidemail = regidemail;
+	}
+	public String getRegdisplayname() {
+		return regdisplayname;
+	}
+	public void setRegdisplayname(String regdisplayname) {
+		this.regdisplayname = regdisplayname;
+	}
 	@Override
 	public String toString() {
 		return "ItemVO [idx=" + idx + ", title_ko=" + title_ko + ", title_en=" + title_en + ", addinfo=" + addinfo
-				+ ", regdate=" + regdate + "]";
-	}	
+				+ ", regdate=" + regdate + ", regidemail=" + regidemail + ", regdisplayname=" + regdisplayname + "]";
+	}
+	
+	
 }
