@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.zzingobomi.domain.Criteria;
 import com.zzingobomi.domain.ItemVO;
 import com.zzingobomi.domain.SearchCriteria;
+import com.zzingobomi.dto.BadRecordDTO;
+import com.zzingobomi.dto.LikeRecordDTO;
 import com.zzingobomi.persistence.ItemDAO;
 
 @Service
@@ -35,6 +37,11 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public void remove(Integer idx) throws Exception {
 		dao.delete(idx);
+	}
+
+	@Override
+	public List<ItemVO> myItems(String regIdEmail) throws Exception {
+		return dao.myItems(regIdEmail);
 	}
 
 	@Override
@@ -65,7 +72,95 @@ public class ItemServiceImpl implements ItemService {
 	
 	
 	@Override
-	public ItemVO oneRandomItem() throws Exception {
-		return dao.chooseRandomItem();
+	public ItemVO oneRandomItem(String reqIdEmail) throws Exception {
+		ItemVO itemVO = dao.chooseRandomItem();
+		dao.updateImpressionCnt(itemVO.getIdx(), 1);	
+		
+		if(reqIdEmail.equals("")) {				// 비로그인 유저
+			itemVO.setLikestate(false);
+			itemVO.setBadstate(false);
+		} else {								// 로그인 유저
+			LikeRecordDTO likeRecordDTO = dao.geLikeRecordDTO(itemVO.getIdx(), reqIdEmail);
+			if(likeRecordDTO == null) {
+				itemVO.setLikestate(false);
+			} else {
+				if(likeRecordDTO.getBlike() == 1) {
+					itemVO.setLikestate(true);
+				} else {
+					itemVO.setLikestate(false);
+				}
+			}
+			
+			BadRecordDTO badRecordDTO = dao.geBadRecordDTO(itemVO.getIdx(), reqIdEmail);
+			if(badRecordDTO == null) {
+				itemVO.setBadstate(false);
+			} else {
+				if(badRecordDTO.getBbad() == 1) {
+					itemVO.setBadstate(true);
+				} else {
+					itemVO.setBadstate(false);
+				}
+			}
+		}
+		
+		return itemVO;
 	}
+	
+	@Override
+	public void likeItem(Integer itemIdx, String regIdEmail) throws Exception {
+		dao.updateLikeCnt(itemIdx, 1);
+		dao.recordLike(itemIdx, regIdEmail, "1");
+	}
+	
+	@Override
+	public void likeCancelItem(Integer itemIdx, String regIdEmail) throws Exception {
+		dao.updateLikeCnt(itemIdx, -1);
+		dao.recordLike(itemIdx, regIdEmail, "0");
+	}
+	
+	@Override
+	public void badItem(Integer itemIdx, String regIdEmail) throws Exception {
+		dao.updateBadCnt(itemIdx, 1);
+		dao.recordBad(itemIdx, regIdEmail, "1");
+	}
+	
+	@Override
+	public void badCancelItem(Integer itemIdx, String regIdEmail) throws Exception {		
+		dao.updateBadCnt(itemIdx, -1);
+		dao.recordBad(itemIdx, regIdEmail, "0");
+	}
+
+	@Override
+	public ItemVO readItemWithState(Integer itemIdx, String regIdEmail) throws Exception {
+		ItemVO itemVO = dao.read(itemIdx);
+		
+		if(regIdEmail.equals("")) {				// 비로그인 유저
+			itemVO.setLikestate(false);
+			itemVO.setBadstate(false);
+		} else {								// 로그인 유저
+			LikeRecordDTO likeRecordDTO = dao.geLikeRecordDTO(itemVO.getIdx(), regIdEmail);
+			if(likeRecordDTO == null) {
+				itemVO.setLikestate(false);
+			} else {
+				if(likeRecordDTO.getBlike() == 1) {
+					itemVO.setLikestate(true);
+				} else {
+					itemVO.setLikestate(false);
+				}
+			}
+			
+			BadRecordDTO badRecordDTO = dao.geBadRecordDTO(itemVO.getIdx(), regIdEmail);
+			if(badRecordDTO == null) {
+				itemVO.setBadstate(false);
+			} else {
+				if(badRecordDTO.getBbad() == 1) {
+					itemVO.setBadstate(true);
+				} else {
+					itemVO.setBadstate(false);
+				}
+			}
+		}
+		
+		return itemVO;
+	}	
 }

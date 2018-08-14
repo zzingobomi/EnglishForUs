@@ -16,6 +16,8 @@ public interface ItemService {
 	
 	public void remove(Integer idx) throws Exception;
 	
+	public List<ItemVO> myItems(String regIdEmail) throws Exception;
+	
 	public List<ItemVO> listAll() throws Exception;
 	
 	public List<ItemVO> listCriteria(Criteria cri) throws Exception;
@@ -26,6 +28,15 @@ public interface ItemService {
 	
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 	
-	public ItemVO oneRandomItem() throws Exception;
-
+	public ItemVO oneRandomItem(String reqIdEmail) throws Exception;
+	
+	public void likeItem(Integer itemIdx, String regIdEmail) throws Exception;
+	
+	public void likeCancelItem(Integer itemIdx, String regIdEmail) throws Exception;
+	
+	public void badItem(Integer itemIdx, String regIdEmail) throws Exception;
+	
+	public void badCancelItem(Integer itemIdx, String regIdEmail) throws Exception;
+	
+	public ItemVO readItemWithState(Integer itemIdx, String regIdEmail) throws Exception;
 }

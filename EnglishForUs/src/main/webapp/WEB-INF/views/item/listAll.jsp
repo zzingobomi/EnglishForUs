@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false"%>
 
 <%@include file="../include/header.jsp"%>
 
@@ -78,7 +77,11 @@
 							<th>ADD_INFO</th>
 							<th>REGID(Email)</th>
 							<th>DISPLAY_NAME</th>
-							<th>REGDATE</th>							
+							<th>REGDATE</th>	
+							<th style="width: 20px">REPLYCNT</th>
+							<th style="width: 20px">LIKECNT</th>
+							<th style="width: 20px">BADCNT</th>
+							<th style="width: 20px">IMPCNT</th>						
 						</tr>							
 					
 					<c:forEach items="${list}" var="itemVO">
@@ -90,6 +93,10 @@
 							<td>${itemVO.regidemail}</td>		
 							<td>${itemVO.regdisplayname}</td>					
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${itemVO.regdate}"/></td>
+							<td>${itemVO.replycnt}</td>
+							<td>${itemVO.likecnt}</td>
+							<td>${itemVO.badcnt}</td>
+							<td>${itemVO.impressioncnt}</td>
 						</tr>					
 					</c:forEach>		
 					

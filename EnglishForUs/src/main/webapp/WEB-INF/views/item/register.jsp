@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <%@ include file="../include/header.jsp" %>	
 
@@ -30,11 +30,11 @@
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">RegIdEmail</label>
-							<input type="text" name="regidemail" class="form-control" placeholder="등록 Id" value="zzingo5@gmail.com" readonly="readonly">							
+							<input type="text" name="regidemail" class="form-control" placeholder="등록 Id" value="${login.uemail}" readonly="readonly">							
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">RegDisplayName</label>
-							<input type="text" name="regdisplayname" class="form-control" placeholder="등록 이름" value="관리자" readonly="readonly">							
+							<input type="text" name="regdisplayname" class="form-control" placeholder="등록 이름" value="${login.uname}" readonly="readonly">							
 						</div>
 					</div>
 					<!-- /.box-body -->

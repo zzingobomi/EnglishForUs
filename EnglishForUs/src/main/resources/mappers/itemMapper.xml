@@ -12,7 +12,7 @@
 	
 	<select id="read" resultType="ItemVO">
 	select
-		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
+		*
 	from
 		tbl_item
 	where idx = #{idx}	
@@ -27,10 +27,21 @@
 	delete from tbl_item where idx = #{idx}
 	</delete>
 	
+	<select id="myItems" resultType="ItemVO">
+	<![CDATA[
+	select 
+		*
+	from
+		tbl_item
+	where regidemail = #{regidemail}
+	order by regdate desc
+	]]>
+	</select>
+	
 	<select id="listAll" resultType="ItemVO">
 	<![CDATA[
 	select 
-		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
+		*
 	from
 		tbl_item
 	where idx > 0
@@ -41,7 +52,7 @@
 	<select id="listPage" resultType="ItemVO">
 	<![CDATA[
 	select 
-		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
+		*
 	from
 		tbl_item
 	where idx > 0
@@ -53,7 +64,7 @@
 	<select id="listCriteria" resultType="ItemVO">
 	<![CDATA[
 	select 
-		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
+		*
 	from
 		tbl_item
 	where idx > 0
@@ -124,9 +135,14 @@
 		</if>
 	</sql>	
 	
+	<update id="updateReplyCnt">
+		update tbl_item set replycnt = replycnt + #{amount} 
+		where idx = #{idx}
+	</update>
+	
 	<select id="oneRandomItem" resultType="ItemVO">
 	select
-		idx, title_ko, title_en, addinfo, regdate, regidemail, regdisplayname
+		*
 	from
 		tbl_item
 	order by 
@@ -134,5 +150,56 @@
 	limit
 		1	
 	</select>
+	
+	<update id="updateImpressionCnt">
+		update tbl_item set impressioncnt = impressioncnt + #{amount} 
+		where idx = #{idx}
+	</update>
+	
+	<update id="updateLikeCnt">
+		update tbl_item set likecnt = likecnt + #{amount} 
+		where idx = #{idx}
+	</update>
+	
+	<update id="updateBadCnt">
+		update tbl_item set badcnt = badcnt + #{amount} 
+		where idx = #{idx}
+	</update>
+	
+	<insert id="recordLike">
+		insert into tbl_like_record (itemidx, regidemail, blike)
+		values(#{itemidx}, #{regidemail}, #{blike})
+	</insert>
+	
+	<insert id="recordBad">
+		insert into tbl_bad_record (itemidx, regidemail, bbad)
+		values(#{itemidx}, #{regidemail}, #{bbad})
+	</insert>
+	
+	<select id="itemLikeSate" resultType="LikeRecordDTO">
+	select
+		*
+	from
+		tbl_like_record
+	where
+		itemidx = #{itemidx} and regidemail = #{regidemail}
+	order by 
+		regdate desc
+	limit
+		1	
+	</select>
+	
+	<select id="itemBadSate" resultType="BadRecordDTO">
+	select
+		*
+	from
+		tbl_bad_record
+	where
+		itemidx = #{itemidx} and regidemail = #{regidemail}
+	order by 
+		regdate desc
+	limit
+		1	
+	</select>	
 
 </mapper>

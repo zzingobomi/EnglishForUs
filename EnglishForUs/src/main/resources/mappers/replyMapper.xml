@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.zzingobomi.mapper.ReplyMapper">
+ 
+ 	<select id="list" resultType="ReplyVO">
+ 		select *
+ 		from tbl_reply
+ 		where itemidx = #{itemidx}
+ 		order by idx desc 	
+ 	</select>
+ 	
+ 	<insert id="create">
+ 		insert into tbl_reply (itemidx, replytext, regidemail, regdisplayname, regphotourl)
+ 		values (#{itemidx}, #{replytext}, #{regidemail}, #{regdisplayname}, #{regphotourl})
+ 	</insert>
+ 	
+ 	<select id="read" resultType="ReplyVO">
+		select
+			*
+		from
+			tbl_reply
+		where idx = #{idx}	
+	</select>
+ 	
+ 	<update id="update">
+ 		update tbl_reply set replytext = #{replytext}, updatedate = now()
+ 		where idx = #{idx}
+ 	</update>
+ 	
+ 	<delete id="delete">
+ 		delete from tbl_reply where idx = #{idx}
+ 	</delete>
+ 	
+ 	<select id="listPage" resultType="ReplyVO">
+ 		select *
+ 		from tbl_reply
+ 		where itemidx = #{itemidx}
+ 		order by idx desc 	
+ 		limit #{cri.pageStart}, #{cri.perPageNum}
+ 	</select>
+ 	
+ 	<select id="count" resultType="int">
+ 		select count(itemidx) from tbl_reply where itemidx = #{itemidx}
+ 	</select>
+ 	
+ 	<select id="getItemIdx" resultType="int">
+ 		select itemidx from tbl_reply where idx = #{idx}
+ 	</select>
+ 	 	
+ 	
+	
+	<update id="updateReplyLikeCnt">
+		update tbl_reply set likecnt = likecnt + #{amount} 
+		where idx = #{idx}
+	</update>
+	
+	<update id="updateReplyBadCnt">
+		update tbl_reply set badcnt = badcnt + #{amount} 
+		where idx = #{idx}
+	</update>
+	
+	<insert id="recordReplyLike">
+		insert into tbl_reply_like_record (replyidx, regidemail, blike)
+		values(#{replyidx}, #{regidemail}, #{blike})
+	</insert>
+	
+	<insert id="recordReplyBad">
+		insert into tbl_reply_bad_record (replyidx, regidemail, bbad)
+		values(#{replyidx}, #{regidemail}, #{bbad})
+	</insert>
+	
+	<select id="replyLikeSate" resultType="LikeRecordDTO">
+	select
+		*
+	from
+		tbl_reply_like_record
+	where
+		replyidx = #{replyidx} and regidemail = #{regidemail}
+	order by 
+		regdate desc
+	limit
+		1	
+	</select>
+	
+	<select id="replyBadSate" resultType="BadRecordDTO">
+	select
+		*
+	from
+		tbl_reply_bad_record
+	where
+		replyidx = #{replyidx} and regidemail = #{regidemail}
+	order by 
+		regdate desc
+	limit
+		1	
+	</select>
+ 	
+ </mapper>

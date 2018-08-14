@@ -6,6 +6,7 @@
  
  	<typeAliases>
  		<package name="com.zzingobomi.domain"/>
+ 		<package name="com.zzingobomi.dto"/>
  	</typeAliases>
  	
  </configuration>
